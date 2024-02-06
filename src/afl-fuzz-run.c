@@ -69,7 +69,7 @@ fuzz_run_target(afl_state_t *afl, afl_forkserver_t *fsrv, u32 timeout) {
 
       if (unlikely(el->afl_custom_post_run)) {
 
-        el->afl_custom_post_run(el->data);
+        el->afl_custom_post_run(el->data, fsrv->trace_bits, fsrv->map_size, afl->last_bitmap_cvg, count_non_255_bytes(afl, afl->virgin_bits));
 
       }
 

@@ -933,11 +933,36 @@ void fuzz_send_py(void *py_mutator, const u8 *buf, size_t buf_size) {
 
 }
 
-void post_run_py(void *py_mutator) {
+void post_run_py(void *py_mutator, const u8 *trace_bits, size_t map_size, double cvg, u32 tbytes) {
 
   PyObject *py_args, *py_value;
 
-  py_args = PyTuple_New(0);
+  py_args = PyTuple_New(3);
+
+  py_value = PyByteArray_FromStringAndSize(trace_bits, map_size/128);
+  if (!py_value) {
+
+    Py_DECREF(py_args);
+    FATAL("Failed to convert arguments");
+  }
+  PyTuple_SetItem(py_args, 0, py_value);
+
+  py_value = PyFloat_FromDouble(cvg);
+  if (!py_value) {
+
+    Py_DECREF(py_args);
+    FATAL("Failed to convert arguments");
+  }
+  PyTuple_SetItem(py_args, 1, py_value);
+
+  py_value = PyLong_FromLong(tbytes);
+  if (!py_value) {
+
+    Py_DECREF(py_args);
+    FATAL("Failed to convert arguments");
+  }
+  PyTuple_SetItem(py_args, 2, py_value);
+
   py_value = PyObject_CallObject(
       ((py_mutator_t *)py_mutator)->py_functions[PY_FUNC_POST_RUN], py_args);
   Py_DECREF(py_args);

@@ -16,6 +16,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+typedef uint8_t  u8;
+typedef uint16_t u16;
+typedef uint32_t u32;
 
 typedef struct my_mutator {
 
@@ -39,7 +42,7 @@ my_mutator_t *afl_custom_init(afl_state_t *afl, unsigned int seed) {
 
 }
 
-void afl_custom_post_run(my_mutator_t *data) {
+void afl_custom_post_run(my_mutator_t *data, u8* trace_bits, u32 map_size, double cvg, u32 tbytes) {
 
   printf("hello from afl_custom_post_run\n");
   return;
