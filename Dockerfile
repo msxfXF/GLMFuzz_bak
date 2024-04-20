@@ -5,9 +5,7 @@
 # GCC 11 is used instead of 12 because genhtml for afl-cov doesn't like it.
 #
 
-FROM ubuntu:22.04 AS aflplusplus
-LABEL "maintainer"="AFL++ team <afl@aflplus.plus>"
-LABEL "about"="AFLplusplus container image"
+FROM ubuntu:22.04 AS glmfuzz
 
 ### Comment out to enable these features
 # Only available on specific ARM64 boards
@@ -27,6 +25,9 @@ ARG DEBIAN_FRONTEND=noninteractive
 
 ENV NO_ARCH_OPT=1
 ENV IS_DOCKER=1
+
+RUN sed -i 's@archive.ubuntu.com@mirrors.tuna.tsinghua.edu.cn@g' /etc/apt/sources.list && \
+    sed -i 's@security.ubuntu.com@mirrors.tuna.tsinghua.edu.cn@g' /etc/apt/sources.list
 
 RUN apt-get update && apt-get full-upgrade -y && \
     apt-get install -y --no-install-recommends wget ca-certificates apt-utils && \
