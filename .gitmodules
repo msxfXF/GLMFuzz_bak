@@ -25,3 +25,6 @@
 [submodule "nyx_mode/QEMU-Nyx"]
 	path = nyx_mode/QEMU-Nyx
 	url = https://github.com/nyx-fuzz/QEMU-Nyx
+[submodule "mutators"]
+	path = mutators
+	url = https://github.com/msxfXF/mutators
