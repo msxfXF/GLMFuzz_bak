@@ -831,7 +831,7 @@ void show_stats_normal(afl_state_t *afl) {
 
     } else {
 
-      fuzzer_name = "american fuzzy lop";
+      fuzzer_name = "GLMFuzz";
       if (banner_len + strlen(fuzzer_name) + strlen(afl->use_banner) > 75) {
 
         fuzzer_name = "AFL";
